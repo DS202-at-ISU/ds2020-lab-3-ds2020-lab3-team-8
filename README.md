@@ -92,16 +92,9 @@ deaths <- av %>%
     cols = starts_with("Death"), 
     names_to = "Time", 
     values_to = "Died") %>% 
-  select(URL, Name.Alias, Time, Died)
-
-maxdeaths <- deaths %>% 
-  mutate(Time = parse_number(Time)) %>% 
-  group_by(URL, Died) %>% filter(Died != "") %>% 
-  summarise(total_deaths = max(Time))
+  select(URL, Name.Alias, Time, Died) %>% 
+  mutate(Time = parse_number(Time))
 ```
-
-    ## `summarise()` has grouped output by 'URL'. You can override using the `.groups`
-    ## argument.
 
 Similarly, deal with the returns of characters.
 
@@ -111,19 +104,23 @@ returns <- av %>%
     cols = starts_with("Return"), 
     names_to = "Time", 
     values_to = "Returned") %>% 
-  select(URL, Name.Alias, Time, Returned)
-
-maxreturns <- returns %>% 
-  mutate(Time = parse_number(Time)) %>% 
-  group_by(URL, Returned) %>% filter(Returned != "") %>% 
-  summarise(total_returns = max(Time))
+  select(URL, Name.Alias, Time, Returned) %>% 
+  mutate(Time = parse_number(Time)) 
 ```
-
-    ## `summarise()` has grouped output by 'URL'. You can override using the `.groups`
-    ## argument.
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
+
+The average number of deaths an Avenger suffers is 1.121387.
+
+``` r
+deaths %>% group_by(URL) %>% filter(Died !="") %>% summarise(totaldeaths = n()) %>% summarise(totalavgdeaths = mean(totaldeaths, na.rm = TRUE))
+```
+
+    ## # A tibble: 1 × 1
+    ##   totalavgdeaths
+    ##            <dbl>
+    ## 1           1.12
 
 ## Individually
 
