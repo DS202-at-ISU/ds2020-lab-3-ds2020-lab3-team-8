@@ -70,6 +70,7 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 ### FiveThirtyEight Statement
 
 Quote the statement you are planning to fact-check.
+
 "What’s more, if you’re a fan of the MCU, nobody is safe. Of the nine Avengers we see on screen — Iron Man, Hulk, Captain America, Thor, Hawkeye, Black Widow, Scarlet Witch, Quicksilver and The Vision — every single one of them has died at least once in the course of their time Avenging in the comics. In fact, Hawkeye died twice!"
 
 ### Include your answer
@@ -78,7 +79,7 @@ Quote the statement you are planning to fact-check.
 
 #View(av)
 
-deaths %>% group_by(URL) %>% filter(Died !="") %>% summarise(totaldeaths = n())
+print.data.frame(deaths %>% group_by(URL) %>% filter(Died !="") %>% summarise(totaldeaths = n()))
 
 
 
@@ -86,6 +87,8 @@ deaths %>% group_by(URL) %>% filter(Died !="") %>% summarise(totaldeaths = n())
 
 
 -   The Fact is correct! According to the code above, all the avengers died at least once and Hawkeye died 2 times.
+
+
 ## Kylie's Work:
 
 "Out of 173 listed Avengers, my analysis found that 69 had died at least one time after they joined the team."
@@ -98,6 +101,27 @@ deaths %>% group_by(URL) %>% filter(Died == "YES") %>% summarise(actualdeaths = 
 Make sure to include the code to derive the (numeric) fact for the statement
 
 I found that the number of avengers who actually died at least once was 69, which means that the statement given in the article is true.
+
+## Devon's Work:
+
+### FiveThirtyEight Statement
+
+
+> "I counted 89 total deaths — some unlucky Avengers7 are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback."
+
+
+```{r}
+deaths %>% group_by(URL) %>% filter(Died == "YES") %>% summarise(actualdeaths = n()) %>% summarise(numavengersdied = n())
+```
+
+
+```{r}
+deaths %>% filter(Died == "YES") %>% summarise(numDeaths = n())
+returns %>% filter(Returned == "YES") %>% summarise(numReturns = n())
+```
+### Include your answer
+
+This fact is correct there were 89 Deaths and occasions where the avenger made a comeback.
 
 Include at least one sentence discussing the result of your fact-checking endeavor.
 
