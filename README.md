@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/orjN5TIA)
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
@@ -72,7 +71,56 @@ between 1 and 5 (look into the function `parse_number`); Death is a
 categorical variables with values “yes”, “no” and ““. Call the resulting
 data set `deaths`.
 
+``` r
+library(tidyverse)
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+    ## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+    ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+    ## ✔ purrr     1.0.4     
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+``` r
+deaths <- av %>% 
+  pivot_longer(
+    cols = starts_with("Death"), 
+    names_to = "Time", 
+    values_to = "Died") %>% 
+  select(URL, Name.Alias, Time, Died)
+
+maxdeaths <- deaths %>% 
+  mutate(Time = parse_number(Time)) %>% 
+  group_by(URL, Died) %>% filter(Died != "") %>% 
+  summarise(total_deaths = max(Time))
+```
+
+    ## `summarise()` has grouped output by 'URL'. You can override using the `.groups`
+    ## argument.
+
 Similarly, deal with the returns of characters.
+
+``` r
+returns <- av %>% 
+  pivot_longer(
+    cols = starts_with("Return"), 
+    names_to = "Time", 
+    values_to = "Returned") %>% 
+  select(URL, Name.Alias, Time, Returned)
+
+maxreturns <- returns %>% 
+  mutate(Time = parse_number(Time)) %>% 
+  group_by(URL, Returned) %>% filter(Returned != "") %>% 
+  summarise(total_returns = max(Time))
+```
+
+    ## `summarise()` has grouped output by 'URL'. You can override using the `.groups`
+    ## argument.
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
