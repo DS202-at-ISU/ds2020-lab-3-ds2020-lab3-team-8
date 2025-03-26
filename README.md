@@ -143,7 +143,14 @@ possible.
 > Loaf with an E-ZPass — and on 57 occasions the individual made a
 > comeback.”
 
-### Include the code
+``` r
+deaths %>% group_by(URL) %>% filter(Died == "YES") %>% summarise(actualdeaths = n()) %>% summarise(numavengersdied = n())
+```
+
+    ## # A tibble: 1 × 1
+    ##   numavengersdied
+    ##             <int>
+    ## 1              69
 
 ``` r
 deaths %>% filter(Died == "YES") %>% summarise(numDeaths = n())

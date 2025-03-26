@@ -72,9 +72,14 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 ### FiveThirtyEight Statement
 
+
 > "I counted 89 total deaths — some unlucky Avengers7 are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback."
 
-### Include the code
+
+```{r}
+deaths %>% group_by(URL) %>% filter(Died == "YES") %>% summarise(actualdeaths = n()) %>% summarise(numavengersdied = n())
+```
+
 
 ```{r}
 deaths %>% filter(Died == "YES") %>% summarise(numDeaths = n())
