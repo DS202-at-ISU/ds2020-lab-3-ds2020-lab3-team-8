@@ -75,16 +75,12 @@ data set `deaths`.
 library(tidyverse)
 ```
 
-    ## Warning: package 'ggplot2' was built under R version 4.4.2
-
-    ## Warning: package 'forcats' was built under R version 4.4.2
-
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
     ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
     ## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-    ## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-    ## ✔ purrr     1.0.2     
+    ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+    ## ✔ purrr     1.0.4     
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
@@ -135,13 +131,10 @@ Each team member picks one of the statements in the FiveThirtyEight
 and fact checks it based on the data. Use dplyr functionality whenever
 possible.
 
-## Devon’s Work:
-
 ### FiveThirtyEight Statement
 
-> “I counted 89 total deaths — some unlucky Avengers7 are basically Meat
-> Loaf with an E-ZPass — and on 57 occasions the individual made a
-> comeback.”
+“Out of 173 listed Avengers, my analysis found that 69 had died at least
+one time after they joined the team.”
 
 ``` r
 deaths %>% group_by(URL) %>% filter(Died == "YES") %>% summarise(actualdeaths = n()) %>% summarise(numavengersdied = n())
@@ -152,25 +145,14 @@ deaths %>% group_by(URL) %>% filter(Died == "YES") %>% summarise(actualdeaths = 
     ##             <int>
     ## 1              69
 
-``` r
-deaths %>% filter(Died == "YES") %>% summarise(numDeaths = n())
-```
+Make sure to include the code to derive the (numeric) fact for the
+statement
 
-    ## # A tibble: 1 × 1
-    ##   numDeaths
-    ##       <int>
-    ## 1        89
+I found that the number of avengers who actually died at least once was
+69, which means that the statement given in the article is true.
 
-``` r
-returns %>% filter(Returned == "YES") %>% summarise(numReturns = n())
-```
+Include at least one sentence discussing the result of your
+fact-checking endeavor.
 
-    ## # A tibble: 1 × 1
-    ##   numReturns
-    ##        <int>
-    ## 1         57
-
-### Include your answer
-
-This fact is correct there were 89 Deaths and occasions where the
-avenger made a comeback.
+Upload your changes to the repository. Discuss and refine answers as a
+team.
